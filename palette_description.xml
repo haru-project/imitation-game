@@ -1,0 +1,5 @@
+<description>
+    <palette name="imitation_game_palette"
+	         path="palettes/imitation_game_palette.xml"
+	         description="Behavior Tree Palettes to interface with the imitation_game game" />
+</description>

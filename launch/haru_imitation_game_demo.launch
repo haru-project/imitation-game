@@ -1,0 +1,97 @@
+<launch>
+
+    # This is a simple imitation game where Haru does different routines and waits for user to copy
+    
+    # Define the configuration arguments
+    
+    
+    # Azure Kinect camera configuration
+    # I am reverting these (and other) positions back to presets defined by the UPO team due to them 
+    # being tested and verified against the document (hence, the coordinate system) they wrote and 
+    # documented in the demo doc. 
+    <arg name="azure_pos_x" default="0.0"/>
+    <arg name="azure_pos_y" default="1.0"/>
+    <arg name="azure_pos_z" default="1.5"/>
+    <arg name="azure_att_roll" default="0.0"/>
+    <arg name="azure_att_pitch" default="0.0"/>
+    <arg name="azure_att_yaw" default="0.0"/>
+
+    # Azure Kinect Camera
+    <include file="$(find strawberry_ros_azure_kinect)/launch/azure_kinect_camera.launch">
+        <arg name="pos_x" value="$(arg azure_pos_x)"/>
+        <arg name="pos_y" value="$(arg azure_pos_y)"/>
+        <arg name="pos_z" value="$(arg azure_pos_z)"/>
+        <arg name="att_roll" value="$(arg azure_att_roll)"/>
+        <arg name="att_pitch" value="$(arg azure_att_pitch)"/>
+        <arg name="att_yaw" value="$(arg azure_att_yaw)"/>
+    </include>
+
+    # Azure Kinect Microphones
+    <include file="$(find strawberry_ros_zz)/launch/strawberry_ros_zz_azurekinect.launch">
+    </include>
+
+    # Gesture recognition
+    <include file="$(find strawberry_ros_azure_kinect)/launch/azure_kinect_gesture.launch"/>
+
+    # Skeleton Assembler
+    <include file="$(find strawberry_ros_people)/launch/strawberry_skeletons_assembler_node.launch"/>
+    
+
+    # People node
+    <include file="$(find strawberry_ros_people)/launch/strawberry_people_node.launch">
+        # Workspace relative to the world frame [meters]
+        <arg name="ws_x_max" value="3.0" />
+        <arg name="ws_x_min" value="0.0" />
+        <arg name="ws_y_max" value="1.5" />
+        <arg name="ws_y_min" value="-1.5" />
+        <arg name="ws_z_max" value="2.0" />
+        <arg name="ws_z_min" value="0.0" />
+        # Skeletons filter parameters
+        <arg name="skeletons_cache_duration" value="0.5" />
+        # default: 1.0 seconds, that seems too much for the Azure camera 
+        <arg name="skeletons_min_num_per_id" value="2" />
+        # default: 10 skeletons. If cache is decreased, min num of skeletons must be decreased
+        # Sound localization input topic
+        <arg name="sound_topic" value="/strawberry/sound_localization" />
+        # default: The robot's mics topic: /idmind_tabletop/sound_localization
+    </include>
+
+    # ASR
+    <include file="$(find strawberry_ros_asr)/launch/strawberry_ros_asr_external_mics.launch">
+        <arg name="sampling_rate" value="16000"/>
+        <!--<arg name="context_sentences" value="Yes;yes;No;no" />-->
+    </include>
+
+    # Disable the ASR, will be enabled by BT
+    <node pkg="rostopic" type="rostopic" name="disable_asr" args="pub -1 /strawberry/enable_asr strawberry_ros_msgs/Enable 'data: false'" />
+
+
+    # Launch Behaviour Tree Node
+     <include file="$(find behavior_tree_ros)/launch/behavior_tree_node.launch"/>
+
+
+    # Set the required Routines path
+    <node pkg="rosservice" type="rosservice" name="srv_caller_set_routine_file" args="call --wait /idmind_tabletop/set_routine_file 'routine_file: $(find imitation_game)/routines/haru.routine'" />
+
+    # RViz Visualization
+    <!--<node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rvizconfig)" respawn="true"/>-->
+    
+    # Run the web video streamer
+    
+    <node name="web_video_server" pkg="web_video_server" type="web_video_server"/>
+    
+    #Text to SSML node for expressive routines
+
+    <include file="$(find haru_nlp_ros)/launch/text_to_ssml_service.launch">
+    </include>
+
+    #Run the picture saver 
+
+    <node name="picture_server" pkg="picture_server" type="picture_server"/>
+
+    #Run the rosbridge
+
+    <include file="$(find rosbridge_server)/launch/rosbridge_websocket.launch" >
+    </include>
+
+</launch>

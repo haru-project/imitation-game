@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<root>
+    <!-- ////////// -->
+    <BehaviorTree ID="HaruTakePhoto">
+        <Sequence>
+            <Action ID="InfoLog" message="Saving picture"/>
+            <Action ID="CaptureImage" cmd="true" path="${path}" num_name="${image_name}" service="/image_cmd"/>
+        </Sequence>
+    </BehaviorTree>
+    <TreeNodesModel>
+        <SubTree ID="HaruTakePhoto">
+            <input_port name="path">Path to save the image ;</input_port>
+            <input_port name="image_name">Name of the image ;</input_port>
+        </SubTree>
+        <Action ID="CaptureImage">
+            <input_port name="cmd" type="bool">Auto-generated field from picture_server::SaveImageRequest_&lt;std::allocator&lt;void&gt; &gt;</input_port>
+            <input_port name="path" type="std::string">Auto-generated field from picture_server::SaveImageRequest_&lt;std::allocator&lt;void&gt; &gt;</input_port>
+            <input_port name="num_name" type="std::string">Auto-generated field from picture_server::SaveImageRequest_&lt;std::allocator&lt;void&gt; &gt;</input_port>
+            <input_port name="service" type="std::string">ROS service name</input_port>
+        </Action>
+        <Action ID="InfoLog">
+            <input_port name="message" type="std::string">Message to log</input_port>
+        </Action>
+    </TreeNodesModel>
+</root>

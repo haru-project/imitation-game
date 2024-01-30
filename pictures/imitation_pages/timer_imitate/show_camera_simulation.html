@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="style/show_camera.css">
+</head>
+<script src="https://cdn.jsdelivr.net/npm/eventemitter2@6/lib/eventemitter2.min.js"></script>
+<script src="/home/haru/haru_interactions_ws/src/roslibjs/build/roslib.js"></script>
+<script src=https://cdnjs.cloudflare.com/ajax/libs/mathjs/3.3.0/math.min.js></script>
+<script src="js/show_camera.js"></script>
+
+<body>
+    <div class="wrapper">
+        <h1>Show me what you can do!</h1>
+        <iframe width='1650' height='800' marginwidth="325" frameborder='0' allowfullscreen
+            src='http://localhost:8080/stream_viewer?topic=/azure_kinect/rgb/image_raw'></iframe>
+    </div>
+    <div id="clock">
+        <span id="seconds">5</span>
+    </div>
+</body>
+
+</html>

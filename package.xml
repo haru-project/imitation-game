@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<package format="2">
+    <name>imitation_game</name>
+    <version>0.0.0</version>
+    <description>Meta package for Imitation Game. Contains useful scripts to configure and launch the Imitation Game
+    </description>
+
+    <maintainer email="sara.cooper@jp.honda-ri.com">Sara Cooper</maintainer>
+
+    <license>TODO</license>
+
+    <author email="sara.cooper@jp.honda-ri.com">Sara Cooper</author>
+
+    <buildtool_depend>catkin</buildtool_depend>
+    <build_depend>picture_server</build_depend>
+    <build_depend version_gte="0.4.1">behavior_tree_ros</build_depend>
+    <build_depend version_gte="3.2.0">behavior_tree_core</build_depend>
+    <build_export_depend>picture_server</build_export_depend>
+    <build_export_depend version_gte="0.4.1">behavior_tree_ros</build_export_depend>
+    <build_export_depend version_gte="3.2.0">behavior_tree_core</build_export_depend>
+    <exec_depend>picture_server</exec_depend>
+    <exec_depend version_gte="0.4.1">behavior_tree_ros</exec_depend>
+    <exec_depend version_gte="3.2.0">behavior_tree_core</exec_depend>
+    <export>
+      <behavior_tree_ros plugin="${prefix}/plugin_description.xml" />
+      <behavior_tree_ros palette="${prefix}/palette_description.xml" />
+    </export>
+</package>

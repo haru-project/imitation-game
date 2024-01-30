@@ -1,0 +1,11 @@
+In order to run the pages run:
+
+roslaunch haru_unity unity_app_launcher.launch 
+
+roslaunch strawberry_ros_azure_kinect azure_kinect_camera.launch
+
+roslaunch rosbridge_server rosbridge_websocket.launch 
+
+rosrun web_video_server web_video_server 
+
+Open the html file on a browser by double clicking it. 
