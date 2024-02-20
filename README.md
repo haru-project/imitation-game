@@ -1,3 +1,4 @@
+# Imitation Game
 This is a simple demo that puts together people detection, ASR, TTS routines and projector 
 capabilities of the robot. Haru does 3 different routines and following them asks the user to 
 replicate. Note there is no monitoring whether user follows Haru or not. 
