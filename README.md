@@ -1,6 +1,14 @@
 # Imitation Game
 
-This is a simple demo that puts together people detection, ASR, TTS routines and projector capabilities of the robot. Haru does 3 different routines and following them asks the user to replicate. Note there is no monitoring whether user follows Haru or not. Use the haru_interactions_ws for this demo.
+This is a simple demo that puts together people detection, ASR, TTS routines and projector capabilities of the robot. Haru does 3 different routines and following them asks the user to replicate. Note there is no monitoring whether user follows Haru or not. Use the `haru_interactions_ws` for this demo.
+
+### Requirements
+
+* haru_unity
+* haru_nlp_ros
+* [picture_server](https://github.com/rsliu-hri/picture_server.git)
+
+### How to run the demo
 
 Run the simulation environment:
 
@@ -8,7 +16,7 @@ Run the simulation environment:
 roslaunch haru_unity unity_app_launcher.launch
 ```
 
-(Select the projector and Haru scene, ensure it is New Projector)
+Select the projector and Haru scene, ensure it is New Projector.
 
 Run the perception modules and behavior tree, also from the workspace where we have the new BT nodes (catkin_ws for now):
 
@@ -50,7 +58,7 @@ Run the demo with the real Haru with the following steps.
 roslaunch haru_unity unity_app_launcher.launch
 ```
 
-(Select the projector and Haru scene, ensure it is New Projector)
+Select the projector and Haru scene, ensure it is New Projector
 
 In a new terminal:
 
